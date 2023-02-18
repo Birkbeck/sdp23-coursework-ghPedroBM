@@ -54,4 +54,16 @@ public abstract class Instruction {
 	public abstract String toString();
 
 	// TODO: Make sure that subclasses also implement equals and hashCode (needed in class Machine).
+
+	@Override
+	public boolean equals(Object obj) {
+		return super.equals(obj);
+	}
+
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
+
+
 }
