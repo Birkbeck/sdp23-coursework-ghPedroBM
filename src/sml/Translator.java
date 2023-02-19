@@ -4,6 +4,8 @@ import sml.instruction.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Scanner;
@@ -49,6 +51,14 @@ public final class Translator {
                     program.add(instruction);
                 }
             }
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e);
+        } catch (InstantiationException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -61,7 +71,7 @@ public final class Translator {
      * The input line should consist of a single SML instruction,
      * with its label already removed.
      */
-    private Instruction getInstruction(String label) {
+    private Instruction getInstruction(String label) throws ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException {
         if (line.isEmpty())
             return null;
 
@@ -69,10 +79,107 @@ public final class Translator {
 
         // TODO: Then, replace the switch by using the Reflection API
 
-        // TODO: Next, use dependency injection to allow this machine class
-        //       to work with different sets of opcodes (different CPUs)
 
-        
+        // Class
+        String opcodeClassName = "sml.instruction." + opcode.substring(0, 1).toUpperCase() + opcode.substring(1) + "Instruction";
+        Class<?> opcodeClass = Class.forName(opcodeClassName);
+        System.out.println(opcodeClassName);
+        System.out.println(opcodeClass);
+
+
+        // Constructors
+        Constructor<?>[] opcodeClassConstructors = opcodeClass.getConstructors();
+
+
+        for (Constructor ctor: opcodeClassConstructors)
+        {
+            System.out.println(ctor);
+        }
+        System.out.println("----------");
+
+        Constructor ctor0 = opcodeClassConstructors[0];
+        // Parameters
+        int ctr0ParameterCount = ctor0.getParameterCount();
+        Class<?>[] pType  = ctor0.getParameterTypes();
+        for (int i = 0; i < pType.length; i++)
+        {
+            System.out.println();
+        }
+
+//        if (ctr0ParameterCount == 2)
+//        {
+//            System.out.println(2);
+//            String r = scan();
+//            String s = scan();
+//            return (Instruction) ctr0.newInstance(label, Register.valueOf(r), Register.valueOf(s));
+//        } else if (ctr0ParameterCount == 3) {
+//            System.out.println(3);
+//        }
+//        ctr0.newInstance()
+//
+//        System.out.println(" --- ");
+//        System.out.println(opcodeClassName + " has " + opcodeClassConstructors.length + " constructors");
+//        for (Constructor ctr:opcodeClassConstructors) {
+//            int ctrParameterCount = ctr.getParameterCount();
+//            System.out.println(ctrParameterCount);
+//        }
+//        System.out.println(" --- ");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        switch (opcode) {
+            case AddInstruction.OP_CODE -> {
+                String r = scan();
+                String s = scan();
+                return new AddInstruction(label, Register.valueOf(r), Register.valueOf(s));
+            }
+            case SubInstruction.OP_CODE -> {
+                String r = scan();
+                String s = scan();
+                return new SubInstruction(label, Register.valueOf(r), Register.valueOf(s));
+            }
+            case MulInstruction.OP_CODE -> {
+                String r = scan();
+                String s = scan();
+                return new MulInstruction(label, Register.valueOf(r), Register.valueOf(s));
+            }
+            case DivInstruction.OP_CODE -> {
+                String r = scan();
+                String s = scan();
+                return new DivInstruction(label, Register.valueOf(r), Register.valueOf(s));
+            }
+            case OutInstruction.OP_CODE -> {
+                String s = scan();
+                return new OutInstruction(label, Register.valueOf(s));
+            }
+            case MovInstruction.OP_CODE -> {
+                String r = scan();
+                String x = scan();
+                return new MovInstruction(label, Register.valueOf(r), Integer.valueOf(x));
+            }
+            case JnzInstruction.OP_CODE -> {
+                String r = scan();
+                String L = scan();
+                return new JnzInstruction(label, Register.valueOf(r), String.valueOf(L));
+            }
+
+            default -> {
+                System.out.println("Unknown instruction: " + opcode);
+            }
+        }
+
         return null;
     }
 
