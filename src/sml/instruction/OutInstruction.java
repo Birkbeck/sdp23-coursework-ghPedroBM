@@ -7,6 +7,8 @@ import sml.RegisterName;
 // TODO: write a JavaDoc for the class
 
 /**
+ * Represents an out (print on the console) instruction
+ *
  * @author Pedro Bustamante Munguira
  */
 

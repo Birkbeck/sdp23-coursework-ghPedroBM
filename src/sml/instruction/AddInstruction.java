@@ -7,8 +7,11 @@ import sml.RegisterName;
 // TODO: write a JavaDoc for the class
 
 /**
- * @author Pedro Bustamante Munguira
+ * Represents an addition instruction.
+ *
+ * @author ...
  */
+
 
 public class AddInstruction extends Instruction {
 	private final RegisterName result;

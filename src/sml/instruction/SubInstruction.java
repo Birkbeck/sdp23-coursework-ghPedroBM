@@ -7,6 +7,8 @@ import sml.RegisterName;
 // TODO: write a JavaDoc for the class
 
 /**
+ * Represents a subtraction instruction
+ *
  * @author Pedro Bustamante Munguira
  */
 

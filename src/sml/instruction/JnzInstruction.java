@@ -7,6 +7,8 @@ import sml.RegisterName;
 // TODO: write a JavaDoc for the class
 
 /**
+ * Represents a <b>J</b>ump if <b>N</b>ot <b>Z</b>ero instruction
+ *
  * @author Pedro Bustamante Munguira
  */
 

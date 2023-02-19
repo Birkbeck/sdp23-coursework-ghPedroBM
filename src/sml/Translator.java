@@ -74,6 +74,7 @@ public final class Translator {
             }
 
             // TODO: add code for all other types of instructions
+            // Answer: See below
             case SubInstruction.OP_CODE -> {
                 String r = scan();
                 String s = scan();

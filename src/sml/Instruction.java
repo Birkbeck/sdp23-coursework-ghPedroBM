@@ -48,12 +48,18 @@ public abstract class Instruction {
 		return (getLabel() == null) ? "" : getLabel() + ": ";
 	}
 
+
 	// TODO: What does abstract in the declaration below mean?
 	//       (Write a short explanation.)
+
+	// Answer: No implementation body is provided, the sub-classes that inherit from this class will
+	// implement (override) it with their specific behavior.
 	@Override
 	public abstract String toString();
 
+
 	// TODO: Make sure that subclasses also implement equals and hashCode (needed in class Machine).
+	// Answer: Below
 
 	@Override
 	public boolean equals(Object obj) {
@@ -64,6 +70,5 @@ public abstract class Instruction {
 	public int hashCode() {
 		return super.hashCode();
 	}
-
 
 }

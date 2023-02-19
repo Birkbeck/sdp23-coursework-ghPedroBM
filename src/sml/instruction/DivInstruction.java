@@ -7,6 +7,8 @@ import sml.RegisterName;
 // TODO: write a JavaDoc for the class
 
 /**
+ * Represents a division instruction
+ *
  * @author Pedro Bustamante Munguira
  */
 
