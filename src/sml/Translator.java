@@ -103,6 +103,12 @@ public final class Translator {
                 return new MovInstruction(label, Register.valueOf(r), Integer.valueOf(x));
             }
 
+            case JnzInstruction.OP_CODE -> {
+                String r = scan();
+                String L = scan();
+                return new JnzInstruction(label, Register.valueOf(r), String.valueOf(L));
+            }
+
             // TODO: Then, replace the switch by using the Reflection API
 
             // TODO: Next, use dependency injection to allow this machine class
