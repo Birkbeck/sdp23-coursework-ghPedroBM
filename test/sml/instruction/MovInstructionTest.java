@@ -31,16 +31,16 @@ class MovInstructionTest {
     @Test
     void executeValid() {
         registers.set(EAX, 5);
-        Instruction instruction = new MovInstruction(null, EAX);
+        Instruction instruction = new MovInstruction(null, EAX, 7);
         instruction.execute(machine);
-        Assertions.assertEquals(5, machine.getRegisters().get(EAX));
+        Assertions.assertEquals(7, machine.getRegisters().get(EAX));
     }
 
     @Test
     void executeValidTwo() {
         registers.set(EAX, -5);
-        Instruction instruction = new MovInstruction(null, EAX);
+        Instruction instruction = new MovInstruction(null, EAX, 7);
         instruction.execute(machine);
-        Assertions.assertEquals(-5, machine.getRegisters().get(EAX));
+        Assertions.assertEquals(7, machine.getRegisters().get(EAX));
     }
 }
