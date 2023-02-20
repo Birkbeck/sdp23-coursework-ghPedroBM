@@ -79,31 +79,31 @@ public final class Translator {
 
         // TODO: Then, replace the switch by using the Reflection API
 
+        // Instruction Class
+        String instructionClassName = "sml.instruction." + opcode.substring(0, 1).toUpperCase() + opcode.substring(1) + "Instruction";
+        Class<?> instructionClass = Class.forName(instructionClassName);
 
-        // Class
-        String opcodeClassName = "sml.instruction." + opcode.substring(0, 1).toUpperCase() + opcode.substring(1) + "Instruction";
-        Class<?> opcodeClass = Class.forName(opcodeClassName);
+        // Constructors of instruction class
+        Constructor<?>[] instructionClassConstructors = instructionClass.getConstructors();
+        Constructor ctor0 = instructionClassConstructors[0];
 
-
-        // Constructors
-        Constructor<?>[] opcodeClassConstructors = opcodeClass.getConstructors();
-        Constructor ctor0 = opcodeClassConstructors[0];
-        
-
-        // Parameters
+        // Parameters of first constructor of instruction class
         int ctr0ParamCount = ctor0.getParameterCount();
         Class<?>[] ctr0ParamTypes  = ctor0.getParameterTypes();
 
-        int smlParamCount = ctr0ParamCount- 1;
+        // The first parameter is always String label,
+        // the remaining ones correspond to parameters of the SML operation itself
+        // Need to scan as many as the number of parameters of the SML operation (smlParamCount)
+        int smlParamCount = ctr0ParamCount - 1;
         String[] smlScans = new String[smlParamCount];
         for (int i = 0; i < smlParamCount; i++) {
             smlScans[i] =  scan();
         }
 
-
-
-
-        if (smlParamCount==1) // case of out
+        // Instantiation
+        // The first parameter of an SML operation is always a register
+        // If there is a second, it could be another register (add, sub, mul, div), an Integer (mov) or a String (jnz)
+        if (smlParamCount==1) // If only one SML parameter, then it is a register
         {
             return (Instruction) ctor0.newInstance(label, Register.valueOf(smlScans[0]));
         }
@@ -122,78 +122,7 @@ public final class Translator {
             return null;
         }
 
-
-
-
-
-//        if (ctr0ParameterCount == 2)
-//        {
-//            System.out.println(2);
-//            String r = scan();
-//            String s = scan();
-//            return (Instruction) ctr0.newInstance(label, Register.valueOf(r), Register.valueOf(s));
-//        } else if (ctr0ParameterCount == 3) {
-//            System.out.println(3);
-//        }
-//        ctr0.newInstance()
-//
-//        System.out.println(" --- ");
-//        System.out.println(opcodeClassName + " has " + opcodeClassConstructors.length + " constructors");
-//        for (Constructor ctr:opcodeClassConstructors) {
-//            int ctrParameterCount = ctr.getParameterCount();
-//            System.out.println(ctrParameterCount);
-//        }
-//        System.out.println(" --- ");
-
-
-        /*
-        switch (opcode) {
-            case AddInstruction.OP_CODE -> {
-                String r = scan();
-                String s = scan();
-                return new AddInstruction(label, Register.valueOf(r), Register.valueOf(s));
-            }
-            case SubInstruction.OP_CODE -> {
-                String r = scan();
-                String s = scan();
-                return new SubInstruction(label, Register.valueOf(r), Register.valueOf(s));
-            }
-            case MulInstruction.OP_CODE -> {
-                String r = scan();
-                String s = scan();
-                return new MulInstruction(label, Register.valueOf(r), Register.valueOf(s));
-            }
-            case DivInstruction.OP_CODE -> {
-                String r = scan();
-                String s = scan();
-                return new DivInstruction(label, Register.valueOf(r), Register.valueOf(s));
-            }
-            case OutInstruction.OP_CODE -> {
-                String s = scan();
-                return new OutInstruction(label, Register.valueOf(s));
-            }
-            case MovInstruction.OP_CODE -> {
-                String r = scan();
-                String x = scan();
-                return new MovInstruction(label, Register.valueOf(r), Integer.valueOf(x));
-            }
-            case JnzInstruction.OP_CODE -> {
-                String r = scan();
-                String L = scan();
-                return new JnzInstruction(label, Register.valueOf(r), String.valueOf(L));
-            }
-
-            default -> {
-                System.out.println("Unknown instruction: " + opcode);
-            }
-        }
-        */
-
-        /*
         return null;
-        */
-        return null;
-
     }
 
 
