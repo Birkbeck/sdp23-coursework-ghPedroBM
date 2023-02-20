@@ -83,28 +83,48 @@ public final class Translator {
         // Class
         String opcodeClassName = "sml.instruction." + opcode.substring(0, 1).toUpperCase() + opcode.substring(1) + "Instruction";
         Class<?> opcodeClass = Class.forName(opcodeClassName);
-        System.out.println(opcodeClassName);
-        System.out.println(opcodeClass);
 
 
         // Constructors
         Constructor<?>[] opcodeClassConstructors = opcodeClass.getConstructors();
-
-
-        for (Constructor ctor: opcodeClassConstructors)
-        {
-            System.out.println(ctor);
-        }
-        System.out.println("----------");
-
         Constructor ctor0 = opcodeClassConstructors[0];
+        
+
         // Parameters
-        int ctr0ParameterCount = ctor0.getParameterCount();
-        Class<?>[] pType  = ctor0.getParameterTypes();
-        for (int i = 0; i < pType.length; i++)
-        {
-            System.out.println();
+        int ctr0ParamCount = ctor0.getParameterCount();
+        Class<?>[] ctr0ParamTypes  = ctor0.getParameterTypes();
+
+        int smlParamCount = ctr0ParamCount- 1;
+        String[] smlScans = new String[smlParamCount];
+        for (int i = 0; i < smlParamCount; i++) {
+            smlScans[i] =  scan();
         }
+
+
+
+
+        if (smlParamCount==1) // case of out
+        {
+            return (Instruction) ctor0.newInstance(label, Register.valueOf(smlScans[0]));
+        }
+        else if(smlParamCount==2)
+        {
+            if(ctr0ParamTypes[2].equals(RegisterName.class)) // add, sub, mul, div
+                return (Instruction) ctor0.newInstance(label, Register.valueOf(smlScans[0]), Register.valueOf(smlScans[1]));
+
+            if(ctr0ParamTypes[2].equals(Integer.class)) // mov
+                return (Instruction) ctor0.newInstance(label, Register.valueOf(smlScans[0]), Integer.valueOf(smlScans[1]));
+
+            if(ctr0ParamTypes[2].equals(String.class)) // jnz
+                return (Instruction) ctor0.newInstance(label, Register.valueOf(smlScans[0]), String.valueOf(smlScans[1]));
+        }
+        else {
+            return null;
+        }
+
+
+
+
 
 //        if (ctr0ParameterCount == 2)
 //        {
@@ -126,19 +146,7 @@ public final class Translator {
 //        System.out.println(" --- ");
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+        /*
         switch (opcode) {
             case AddInstruction.OP_CODE -> {
                 String r = scan();
@@ -179,8 +187,13 @@ public final class Translator {
                 System.out.println("Unknown instruction: " + opcode);
             }
         }
+        */
 
+        /*
         return null;
+        */
+        return null;
+
     }
 
 
