@@ -22,10 +22,7 @@ public class SubInstruction extends Instruction {
 
 
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), result, source);
-    }
+
 
     @Override
     public int execute(Machine m) {
@@ -53,5 +50,10 @@ public class SubInstruction extends Instruction {
         if (!super.equals(o)) return false;
         SubInstruction that = (SubInstruction) o;
         return Objects.equals(result, that.result) && Objects.equals(source, that.source);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), result, source);
     }
 }
