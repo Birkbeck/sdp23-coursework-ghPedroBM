@@ -2,6 +2,8 @@ package sml;
 
 // TODO: write a JavaDoc for the class
 
+import java.util.Objects;
+
 /**
  * Represents an abstract instruction.
  *
@@ -58,17 +60,21 @@ public abstract class Instruction {
 	public abstract String toString();
 
 
+
 	// TODO: Make sure that subclasses also implement equals and hashCode (needed in class Machine).
-	// Answer: Below
+	// Done
 
 	@Override
-	public boolean equals(Object obj) {
-		return super.equals(obj);
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Instruction that = (Instruction) o;
+		return Objects.equals(label, that.label) && Objects.equals(opcode, that.opcode);
 	}
 
 	@Override
 	public int hashCode() {
-		return super.hashCode();
+		return Objects.hash(label, opcode);
 	}
 
 }

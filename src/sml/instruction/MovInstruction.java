@@ -4,6 +4,8 @@ import sml.Instruction;
 import sml.Machine;
 import sml.RegisterName;
 
+import java.util.Objects;
+
 // TODO: write a JavaDoc for the class
 
 /**
@@ -35,4 +37,19 @@ public class MovInstruction extends Instruction {
     public String toString() {
         return getLabelString() + getOpcode() + " " + result;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        MovInstruction that = (MovInstruction) o;
+        return Objects.equals(result, that.result) && Objects.equals(x, that.x);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), result, x);
+    }
+
 }
