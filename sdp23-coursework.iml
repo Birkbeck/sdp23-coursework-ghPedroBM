@@ -35,5 +35,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="springframework.spring.beans" level="project" />
+    <orderEntry type="library" name="springframework.spring.context" level="project" />
   </component>
 </module>

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -79,48 +80,69 @@ public final class Translator {
 
         // TODO: Then, replace the switch by using the Reflection API
 
-        // Instruction Class
-        String instructionClassName = "sml.instruction." + opcode.substring(0, 1).toUpperCase() + opcode.substring(1) + "Instruction";
-        Class<?> instructionClass = Class.forName(instructionClassName);
 
-        // Constructors of instruction class
-        Constructor<?>[] instructionClassConstructors = instructionClass.getConstructors();
-        Constructor ctor0 = instructionClassConstructors[0];
+//        Instruction addInstruction = new AddInstruction();
+//        Instruction mulInstruction = new MulInstruction();
+//        List<Instruction> listRS = new ArrayList<>();
+//        listRS.add(addInstruction);
+//        listRS.add(mulInstruction);
+//
+//        InstructionFactory myFuckingMap = new InstructionFactory(listRS);
 
-        // Parameters of first constructor of instruction class
-        int ctr0ParamCount = ctor0.getParameterCount();
-        Class<?>[] ctr0ParamTypes  = ctor0.getParameterTypes();
+//        InstructionFactory instructionFactory = new InstructionFactory();
+//        Instruction instructionInstance = instructionFactory.getInstructionInstanceFromOpcode(opcode);
+//        return instructionInstance;
 
-        // The first parameter is always String label,
-        // the remaining ones correspond to parameters of the SML operation itself
-        // Need to scan as many as the number of parameters of the SML operation (smlParamCount)
-        int smlParamCount = ctr0ParamCount - 1;
-        String[] smlScans = new String[smlParamCount];
-        for (int i = 0; i < smlParamCount; i++) {
-            smlScans[i] =  scan();
-        }
+        /**/
+//        // Instruction Class
+//        String instructionClassName = "sml.instruction." + opcode.substring(0, 1).toUpperCase() + opcode.substring(1) + "Instruction";
+//        Class<?> instructionClass = Class.forName(instructionClassName);
+//
+//        // Constructors of instruction class
+//        Constructor<?>[] instructionClassConstructors = instructionClass.getConstructors();
+//        Constructor ctor0 = instructionClassConstructors[0];
+//
+//        // Parameters of first constructor of instruction class
+//        int ctr0ParamCount = ctor0.getParameterCount();
+//        Class<?>[] ctr0ParamTypes  = ctor0.getParameterTypes();
+//
+//        // The first parameter is always String label,
+//        // the remaining ones correspond to parameters of the SML operation itself
+//        // Need to scan as many as the number of parameters of the SML operation (smlParamCount)
+//        int smlParamCount = ctr0ParamCount - 1;
+//        String[] smlScans = new String[smlParamCount];
+//        for (int i = 0; i < smlParamCount; i++) {
+//            smlScans[i] =  scan();
+//        }
+//
+//        // Instantiation
+//        // The first parameter of an SML operation is always a register
+//        // If there is a second, it could be another register (add, sub, mul, div), an Integer (mov) or a String (jnz)
+//        if (smlParamCount==1) // If only one SML parameter, then it is a register
+//        {
+//            return (Instruction) ctor0.newInstance(label, Register.valueOf(smlScans[0]));
+//        }
+//        else if(smlParamCount==2)
+//        {
+//            if(ctr0ParamTypes[2].equals(RegisterName.class)) // add, sub, mul, div
+//                return (Instruction) ctor0.newInstance(label, Register.valueOf(smlScans[0]), Register.valueOf(smlScans[1]));
+//
+//            if(ctr0ParamTypes[2].equals(Integer.class)) // mov
+//                return (Instruction) ctor0.newInstance(label, Register.valueOf(smlScans[0]), Integer.valueOf(smlScans[1]));
+//
+//            if(ctr0ParamTypes[2].equals(String.class)) // jnz
+//                return (Instruction) ctor0.newInstance(label, Register.valueOf(smlScans[0]), String.valueOf(smlScans[1]));
+//        }
+//        else {
+//            return null;
+//        }
+        /**/
 
-        // Instantiation
-        // The first parameter of an SML operation is always a register
-        // If there is a second, it could be another register (add, sub, mul, div), an Integer (mov) or a String (jnz)
-        if (smlParamCount==1) // If only one SML parameter, then it is a register
-        {
-            return (Instruction) ctor0.newInstance(label, Register.valueOf(smlScans[0]));
-        }
-        else if(smlParamCount==2)
-        {
-            if(ctr0ParamTypes[2].equals(RegisterName.class)) // add, sub, mul, div
-                return (Instruction) ctor0.newInstance(label, Register.valueOf(smlScans[0]), Register.valueOf(smlScans[1]));
+        InstructionFactory instructionFactory = new InstructionFactory();
+        Instruction myInstruction = instructionFactory.getInstructionInstanceFromOpcode("mul");
+        String myTest = myInstruction.getClass().getName();
 
-            if(ctr0ParamTypes[2].equals(Integer.class)) // mov
-                return (Instruction) ctor0.newInstance(label, Register.valueOf(smlScans[0]), Integer.valueOf(smlScans[1]));
 
-            if(ctr0ParamTypes[2].equals(String.class)) // jnz
-                return (Instruction) ctor0.newInstance(label, Register.valueOf(smlScans[0]), String.valueOf(smlScans[1]));
-        }
-        else {
-            return null;
-        }
 
         return null;
     }
