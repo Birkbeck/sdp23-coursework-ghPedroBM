@@ -43,4 +43,45 @@ class JnzInstructionTest {
         //instruction.execute(machine);
         //Assertions.assertEquals(4, machine.getLabels().getAddress("f3"));
     }
+
+
+
+
+    @Test
+    void testToString() {
+        Instruction instruction = new JnzInstruction(null, EAX, "labelNextStatementTest");
+        String expectedString = "jnz EAX labelNextStatementTest";
+        String actualString = instruction.toString();
+        Assertions.assertEquals(expectedString, actualString);
+    }
+
+    @Test
+    void testEqualsTrue() {
+        Instruction instruction1 = new JnzInstruction(null, EAX, "labelNextStatementTest");
+        Instruction instruction2 = new JnzInstruction(null, EAX, "labelNextStatementTest");
+        Assertions.assertTrue(instruction1.equals(instruction2));
+        Assertions.assertTrue(instruction2.equals(instruction1));
+    }
+
+    @Test
+    void testEqualsFalse() {
+        Instruction instruction1 = new JnzInstruction(null, EAX, "labelNextStatementTest1");
+        Instruction instruction2 = new JnzInstruction(null, EBX, "labelNextStatementTest2");
+        Assertions.assertFalse(instruction1.equals(instruction2));
+        Assertions.assertFalse(instruction2.equals(instruction1));
+    }
+
+    @Test
+    void testHashCodeTrue() {
+        Instruction instruction1 = new JnzInstruction(null, EAX, "labelNextStatementTest");
+        Instruction instruction2 = new JnzInstruction(null, EAX, "labelNextStatementTest");
+        Assertions.assertTrue(instruction1.hashCode()==instruction2.hashCode());
+    }
+
+    void testHashCodeFalse() {
+        Instruction instruction1 = new JnzInstruction(null, EAX, "labelNextStatementTest1");
+        Instruction instruction2 = new JnzInstruction(null, EBX, "labelNextStatementTest2");
+        Assertions.assertFalse(instruction1.hashCode()==instruction2.hashCode());
+    }
+
 }
