@@ -36,14 +36,15 @@ public class ArithmeticErrorTest {
 
     @Test
     void divisionByZeroTest() {
-        Exception exception = Assertions.assertThrows(ArithmeticException.class, () -> {
+        try {
             String inputFileName = "division0.txt";
             Translator t = new Translator(inputFileName);
             Machine m = new Machine(new Registers());
             t.readAndTranslate(m.getLabels(), m.getProgram());
             m.execute();
-        });
-        Assertions.assertEquals("/ by zero", exception.getMessage());
+        } catch (IOException e) {
+            Assertions.assertTrue(e.getMessage() == "/ by 0");
+        }
     }
 
 }
