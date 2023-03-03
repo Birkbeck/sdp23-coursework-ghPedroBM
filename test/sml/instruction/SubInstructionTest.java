@@ -45,10 +45,7 @@ class SubInstructionTest {
         instruction.execute(machine);
         Assertions.assertEquals(-11, machine.getRegisters().get(EAX));
     }
-
-
-
-
+    
     @Test
     void testToString() {
         Instruction instruction = new SubInstruction(null, EAX, EBX);
@@ -85,6 +82,5 @@ class SubInstructionTest {
         Instruction instruction2 = new SubInstruction(null, EBX, EBX);
         Assertions.assertFalse(instruction1.hashCode()==instruction2.hashCode());
     }
-
 
 }

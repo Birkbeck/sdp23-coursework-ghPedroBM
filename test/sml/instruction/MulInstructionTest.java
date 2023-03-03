@@ -46,8 +46,6 @@ class MulInstructionTest {
         Assertions.assertEquals(-30, machine.getRegisters().get(EAX));
     }
 
-
-
     @Test
     void testToString() {
         Instruction instruction = new MulInstruction(null, EAX, EBX);
@@ -84,8 +82,5 @@ class MulInstructionTest {
         Instruction instruction2 = new MulInstruction(null, EBX, EBX);
         Assertions.assertFalse(instruction1.hashCode()==instruction2.hashCode());
     }
-
-
-
 
 }

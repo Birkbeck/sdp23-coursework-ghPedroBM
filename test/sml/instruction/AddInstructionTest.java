@@ -46,8 +46,6 @@ class AddInstructionTest {
     Assertions.assertEquals(1, machine.getRegisters().get(EAX));
   }
 
-
-
   @Test
   void testToString() {
     Instruction instruction = new AddInstruction(null, EAX, EBX);
@@ -84,7 +82,5 @@ class AddInstructionTest {
     Instruction instruction2 = new AddInstruction(null, EBX, EBX);
     Assertions.assertFalse(instruction1.hashCode()==instruction2.hashCode());
   }
-
-
 
 }

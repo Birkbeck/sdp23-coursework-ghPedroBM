@@ -44,9 +44,6 @@ class JnzInstructionTest {
         //Assertions.assertEquals(4, machine.getLabels().getAddress("f3"));
     }
 
-
-
-
     @Test
     void testToString() {
         Instruction instruction = new JnzInstruction(null, EAX, "labelNextStatementTest");

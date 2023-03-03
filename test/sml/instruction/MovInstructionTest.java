@@ -44,8 +44,6 @@ class MovInstructionTest {
         Assertions.assertEquals(7, machine.getRegisters().get(EAX));
     }
 
-
-
     @Test
     void testToString() {
         Instruction instruction = new MovInstruction(null, EAX, -1);
@@ -82,4 +80,5 @@ class MovInstructionTest {
         Instruction instruction2 = new MovInstruction(null, EBX, -11);
         Assertions.assertFalse(instruction1.hashCode()==instruction2.hashCode());
     }
+
 }

@@ -67,10 +67,6 @@ class DivInstructionTest {
         });
     }
 
-
-
-
-
     @Test
     void testToString() {
         Instruction instruction = new DivInstruction(null, EAX, EBX);
@@ -107,6 +103,5 @@ class DivInstructionTest {
         Instruction instruction2 = new DivInstruction(null, EBX, EBX);
         Assertions.assertFalse(instruction1.hashCode()==instruction2.hashCode());
     }
-
 
 }
