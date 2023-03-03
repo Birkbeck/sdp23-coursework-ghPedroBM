@@ -66,4 +66,47 @@ class DivInstructionTest {
             instruction.execute(machine);
         });
     }
+
+
+
+
+
+    @Test
+    void testToString() {
+        Instruction instruction = new DivInstruction(null, EAX, EBX);
+        String expectedString = "div EAX EBX";
+        String actualString = instruction.toString();
+        Assertions.assertEquals(expectedString, actualString);
+    }
+
+    @Test
+    void testEqualsTrue() {
+        Instruction instruction1 = new DivInstruction(null, EAX, EBX);
+        Instruction instruction2 = new DivInstruction(null, EAX, EBX);
+        Assertions.assertTrue(instruction1.equals(instruction2));
+        Assertions.assertTrue(instruction2.equals(instruction1));
+    }
+
+    @Test
+    void testEqualsFalse() {
+        Instruction instruction1 = new DivInstruction(null, EAX, EAX);
+        Instruction instruction2 = new DivInstruction(null, EBX, EBX);
+        Assertions.assertFalse(instruction1.equals(instruction2));
+        Assertions.assertFalse(instruction2.equals(instruction1));
+    }
+
+    @Test
+    void testHashCodeTrue() {
+        Instruction instruction1 = new DivInstruction(null, EAX, EBX);
+        Instruction instruction2 = new DivInstruction(null, EAX, EBX);
+        Assertions.assertTrue(instruction1.hashCode()==instruction2.hashCode());
+    }
+
+    void testHashCodeFalse() {
+        Instruction instruction1 = new DivInstruction(null, EAX, EAX);
+        Instruction instruction2 = new DivInstruction(null, EBX, EBX);
+        Assertions.assertFalse(instruction1.hashCode()==instruction2.hashCode());
+    }
+
+
 }
