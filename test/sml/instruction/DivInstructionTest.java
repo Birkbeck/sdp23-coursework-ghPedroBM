@@ -67,8 +67,10 @@ class DivInstructionTest {
         });
     }
 
+
+    // Test toString
     @Test
-    void testToString() {
+    void testToStringNullLabel() {
         Instruction instruction = new DivInstruction(null, EAX, EBX);
         String expectedString = "div EAX EBX";
         String actualString = instruction.toString();
@@ -76,7 +78,15 @@ class DivInstructionTest {
     }
 
     @Test
-    void testEqualsTrue() {
+    void testToStringNonNullLabel() {
+        Instruction instruction = new DivInstruction("l 1", EAX, EBX);
+        String expectedString = "l 1: div EAX EBX";
+        String actualString = instruction.toString();
+        Assertions.assertEquals(expectedString, actualString);
+    }
+
+    @Test
+    void testEqualsTrueNullLabel() {
         Instruction instruction1 = new DivInstruction(null, EAX, EBX);
         Instruction instruction2 = new DivInstruction(null, EAX, EBX);
         Assertions.assertTrue(instruction1.equals(instruction2));
@@ -84,7 +94,16 @@ class DivInstructionTest {
     }
 
     @Test
-    void testEqualsFalse() {
+    void testEqualsTrueNonNullLabel() {
+        Instruction instruction1 = new DivInstruction("l 1", EAX, EBX);
+        Instruction instruction2 = new DivInstruction("l 1", EAX, EBX);
+        Assertions.assertTrue(instruction1.equals(instruction2));
+        Assertions.assertTrue(instruction2.equals(instruction1));
+    }
+
+    // Test equals
+    @Test
+    void testEqualsFalseNullLabelDifferentRegisters() {
         Instruction instruction1 = new DivInstruction(null, EAX, EAX);
         Instruction instruction2 = new DivInstruction(null, EBX, EBX);
         Assertions.assertFalse(instruction1.equals(instruction2));
@@ -92,15 +111,46 @@ class DivInstructionTest {
     }
 
     @Test
-    void testHashCodeTrue() {
+    void testEqualsFalseNonNullLabelDifferentRegisters() {
+        Instruction instruction1 = new DivInstruction("l 1", EAX, EAX);
+        Instruction instruction2 = new DivInstruction("l 1", EBX, EBX);
+        Assertions.assertFalse(instruction1.equals(instruction2));
+        Assertions.assertFalse(instruction2.equals(instruction1));
+    }
+
+    @Test
+    void testEqualsFalseNonNullLabelDifferentLabels() {
+        Instruction instruction1 = new DivInstruction("l 1", EAX, EAX);
+        Instruction instruction2 = new DivInstruction("l1", EAX, EAX);
+        Assertions.assertFalse(instruction1.equals(instruction2));
+        Assertions.assertFalse(instruction2.equals(instruction1));
+    }
+
+    // Test hashCode
+    @Test
+    void testHashCodeTrueNullLabels() {
         Instruction instruction1 = new DivInstruction(null, EAX, EBX);
         Instruction instruction2 = new DivInstruction(null, EAX, EBX);
         Assertions.assertTrue(instruction1.hashCode()==instruction2.hashCode());
     }
 
-    void testHashCodeFalse() {
-        Instruction instruction1 = new DivInstruction(null, EAX, EAX);
-        Instruction instruction2 = new DivInstruction(null, EBX, EBX);
+    @Test
+    void testHashCodeTrueNonNullLabels() {
+        Instruction instruction1 = new DivInstruction("l 1", EAX, EBX);
+        Instruction instruction2 = new DivInstruction("l 1", EAX, EBX);
+        Assertions.assertTrue(instruction1.hashCode()==instruction2.hashCode());
+    }
+
+    @Test
+    void testHashCodeFalseNonNullLabelsDifferentRegisters() {
+        Instruction instruction1 = new DivInstruction("l 1", EAX, EAX);
+        Instruction instruction2 = new DivInstruction("l 1", EBX, EBX);
+        Assertions.assertFalse(instruction1.hashCode()==instruction2.hashCode());
+    }
+
+    void testHashCodeFalseNonNullLabelsDifferentLabels() {
+        Instruction instruction1 = new DivInstruction("l 1", EAX, EAX);
+        Instruction instruction2 = new DivInstruction("l1", EBX, EBX);
         Assertions.assertFalse(instruction1.hashCode()==instruction2.hashCode());
     }
 
