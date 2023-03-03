@@ -45,4 +45,46 @@ class SubInstructionTest {
         instruction.execute(machine);
         Assertions.assertEquals(-11, machine.getRegisters().get(EAX));
     }
+
+
+
+
+    @Test
+    void testToString() {
+        Instruction instruction = new SubInstruction(null, EAX, EBX);
+        String expectedString = "sub EAX EBX";
+        String actualString = instruction.toString();
+        Assertions.assertEquals(expectedString, actualString);
+    }
+
+    @Test
+    void testEqualsTrue() {
+        Instruction instruction1 = new SubInstruction(null, EAX, EBX);
+        Instruction instruction2 = new SubInstruction(null, EAX, EBX);
+        Assertions.assertTrue(instruction1.equals(instruction2));
+        Assertions.assertTrue(instruction2.equals(instruction1));
+    }
+
+    @Test
+    void testEqualsFalse() {
+        Instruction instruction1 = new SubInstruction(null, EAX, EAX);
+        Instruction instruction2 = new SubInstruction(null, EBX, EBX);
+        Assertions.assertFalse(instruction1.equals(instruction2));
+        Assertions.assertFalse(instruction2.equals(instruction1));
+    }
+
+    @Test
+    void testHashCodeTrue() {
+        Instruction instruction1 = new SubInstruction(null, EAX, EBX);
+        Instruction instruction2 = new SubInstruction(null, EAX, EBX);
+        Assertions.assertTrue(instruction1.hashCode()==instruction2.hashCode());
+    }
+
+    void testHashCodeFalse() {
+        Instruction instruction1 = new SubInstruction(null, EAX, EAX);
+        Instruction instruction2 = new SubInstruction(null, EBX, EBX);
+        Assertions.assertFalse(instruction1.hashCode()==instruction2.hashCode());
+    }
+
+
 }
