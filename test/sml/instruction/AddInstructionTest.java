@@ -45,4 +45,46 @@ class AddInstructionTest {
     instruction.execute(machine);
     Assertions.assertEquals(1, machine.getRegisters().get(EAX));
   }
+
+
+
+  @Test
+  void testToString() {
+    Instruction instruction = new AddInstruction(null, EAX, EBX);
+    String expectedString = "add EAX EBX";
+    String actualString = instruction.toString();
+    Assertions.assertEquals(expectedString, actualString);
+  }
+
+  @Test
+  void testEqualsTrue() {
+    Instruction instruction1 = new AddInstruction(null, EAX, EBX);
+    Instruction instruction2 = new AddInstruction(null, EAX, EBX);
+    Assertions.assertTrue(instruction1.equals(instruction2));
+    Assertions.assertTrue(instruction2.equals(instruction1));
+  }
+
+  @Test
+  void testEqualsFalse() {
+    Instruction instruction1 = new AddInstruction(null, EAX, EAX);
+    Instruction instruction2 = new AddInstruction(null, EBX, EBX);
+    Assertions.assertFalse(instruction1.equals(instruction2));
+    Assertions.assertFalse(instruction2.equals(instruction1));
+  }
+
+  @Test
+  void testHashCodeTrue() {
+    Instruction instruction1 = new AddInstruction(null, EAX, EBX);
+    Instruction instruction2 = new AddInstruction(null, EAX, EBX);
+    Assertions.assertTrue(instruction1.hashCode()==instruction2.hashCode());
+  }
+
+  void testHashCodeFalse() {
+    Instruction instruction1 = new AddInstruction(null, EAX, EAX);
+    Instruction instruction2 = new AddInstruction(null, EBX, EBX);
+    Assertions.assertFalse(instruction1.hashCode()==instruction2.hashCode());
+  }
+
+
+
 }
