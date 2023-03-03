@@ -33,7 +33,7 @@ public class DivInstruction extends Instruction {
         int value2 = m.getRegisters().get(source);
 
         if (value2 == 0) {
-            throw new ArithmeticException(" / by zero");
+            throw new ArithmeticException("/ by zero");
         }
 
         m.getRegisters().set(result, value1 / value2);
